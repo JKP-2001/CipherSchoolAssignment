@@ -4,20 +4,18 @@ const eduEnum = ["Primary","Secondary","Higher Secondary","Graduation","Post Gra
 const proffEnum = ["Schooling","College","Teaching","Job","Freelancing"]
 
 const onTheWebSchema = {
-    LinkedInId:{type:String},
-    GithubId:{type:String},
-    FaceBookId:{type:String},
-    Twitter:{type:String},
-    Instagram:{type:String},
-    Website:{type:String},
+    LinkedInId:{type:String,default:""},
+    GithubId:{type:String,default:""},
+    FaceBookId:{type:String,default:""},
+    Twitter:{type:String,default:""},
+    Instagram:{type:String,default:""},
+    Website:{type:String,default:""},
 }
 
 const proffInfoSchema = {
     highestEdu:{type:String,enum:eduEnum},
     currProff:{type:String,enum:proffEnum}
 }
-
-
 
 const User = new mongoose.Schema({
     name:{type:String, required:true},
