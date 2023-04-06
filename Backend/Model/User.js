@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const eduEnum = ["Primary","Secondary","Higher Secondary","Graduation","Post Graduation"];
-const proffEnum = ["Schooling","College","Teaching","Job","Freelancing"]
+const eduEnum = ["None","Primary","Secondary","Higher Secondary","Graduation","Post Graduation"];
+const proffEnum = ["None","Schooling","College","Teaching","Job","Freelancing"]
 
 const onTheWebSchema = {
     LinkedInId:{type:String,default:""},
@@ -13,8 +13,8 @@ const onTheWebSchema = {
 }
 
 const proffInfoSchema = {
-    highestEdu:{type:String,enum:eduEnum},
-    currProff:{type:String,enum:proffEnum}
+    highestEdu:{type:String,enum:eduEnum,default:"None"},
+    currProff:{type:String,enum:proffEnum,default:"None"}
 }
 
 const User = new mongoose.Schema({
@@ -24,7 +24,10 @@ const User = new mongoose.Schema({
     aboutMe:{type:String, required:false},
     onTheWeb:onTheWebSchema,
     proffInfo:proffInfoSchema,
-    interest:[{type:String,default:[]}]
+    interest:[{type:String,default:[]}],
+    followers:[{type:mongoose.Schema.Types.ObjectId, default:[]}],
+    followings:[{type:mongoose.Schema.Types.ObjectId, default:[]}],
+    profileImageUrl:{type:String,required:true,default:""}
 })
 
 module.exports = mongoose.model('User',User);

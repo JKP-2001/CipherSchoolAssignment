@@ -4,7 +4,9 @@ const express = require("express")
 const app = express();
 const methodOverride = require("method-override");
 const morgan = require("morgan");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { authRouter } = require("./Routes/authRoutes");
+const { userRouter } = require("./Routes/userRouter");
 const BASE_URL = process.env.BASE_URL;
 
 
@@ -27,14 +29,23 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
 
-    if (req.originalMethod !== "GET" && req.headers["security-key"] !== process.env.SECURITY_KEY) {
-        res.json({"message": "You are not authorized"});
-        return;
-    }
-    next();
-});
+//     // if (req.originalMethod !== "GET" && req.headers["security-key"] !== process.env.API_SECRET) {
+//     //     res.json({"message": "You are not authorized"});
+//     //     return;
+//     // }
+//     if (req.originalMethod !== "GET" ) {
+//         res.json({"message": "You are not authorized"});
+//         return;
+//     }
+    
+//     next();
+// });
+
+
+app.use(BASE_URL,authRouter);
+app.use(BASE_URL,userRouter);
 
 
 const runApp = async () => {
